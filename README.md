@@ -1,5 +1,18 @@
 # CS210 Diabetes Prediction Project
 
+## Course Information  
+
+Rutgers University – New Brunswick  
+CS210 Data Management For Data Science
+Spring 2026  
+
+## Team Members  
+ 
+- Hongyu Shi (hs1208)
+- Qiwei Chen (qc145)
+- Puxiang Wang(pw383)
+
+
 ## Overview
 
 This project analyzes diabetes risk factors using the BRFSS 2015 Diabetes Health Indicators Dataset. We built a full data pipeline that includes PostgreSQL database design, ETL processing, SQL analytics, and machine learning models to predict diabetes status.
