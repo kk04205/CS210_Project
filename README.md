@@ -20,7 +20,8 @@ The project demonstrates how structured health survey data can be transformed in
 
 ## Dataset
 
-Source: Kaggle / BRFSS 2015 Diabetes Health Indicators Dataset
+Source: Kaggle - Diabetes Health Indicators Dataset
+https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset
 
 Records: 253,680 respondents
 
