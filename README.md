@@ -65,8 +65,6 @@ The raw dataset was normalized into four relational tables:
 - `health_indicators`
 - `diabetes_labels`
 
-This design reduces redundancy and improves query efficiency.
-
 ---
 
 ## ETL Pipeline
