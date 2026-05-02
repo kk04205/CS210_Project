@@ -1,0 +1,3 @@
+This figure shows how diabetes prevalence changes across age categories. The overall pattern rises steadily with age, indicating that older respondents are 
+more likely to belong to the diabetes group. This is consistent with the project’s exploratory analysis objective and supports the use of age as an important 
+feature in our predictive models. The trend also matches the SQL analysis summary in our project, which found that diabetes prevalence increases significantly with age.
