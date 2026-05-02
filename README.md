@@ -170,6 +170,8 @@ This figure presents the top ten most important features from the Random Forest 
 
 ### Additional Visualizations
 
+All additional visualization outputs are stored in the `outputs/figures/` folder. For clarity and interpretability, each figure in this section is accompanied by a short annotation below the image explaining what it shows and how it relates to our diabetes risk classification project.
+
 - BMI vs Diabetes  
 - Age vs Diabetes Rate  
 - Correlation Heatmap  
