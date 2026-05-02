@@ -1,0 +1,3 @@
+This figure presents the top ten most important features from the Random Forest model. BMI is the most influential predictor, followed by age, general health, income, 
+and high blood pressure. These results are especially valuable for our project because they connect model performance back to interpretable public health factors. 
+Rather than treating the model as a black box, this plot helps explain which variables are driving diabetes risk classification and why the model makes its predictions.
