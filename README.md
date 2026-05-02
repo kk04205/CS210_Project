@@ -195,8 +195,6 @@ Feature importance from Random Forest:
 
 - Neural Network shows moderate performance but can be improved  
 
-### Important:
-
 In healthcare prediction, **recall is more important than accuracy**, because missing a diabetes case is costly.
 
 ---
