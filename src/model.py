@@ -24,14 +24,18 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 
-
+# Database connection string.
+# If DATABASE_URL is set as an environment variable, use it.
+# Otherwise, fall back to the local PostgreSQL database.
 DB_URL = os.getenv(
     "DATABASE_URL",
     "postgresql+psycopg2://kk@localhost:5432/cs210_diabetes"
 )
 
+# Create a connection engine for querying the database.
 engine = create_engine(DB_URL)
 
+# Define output folders for model results and generated figures.
 OUTPUT_DIR = Path("outputs")
 FIGURE_DIR = Path("outputs/figures")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -91,8 +95,10 @@ def get_model_scores(model, X_test):
 def evaluate_model(name, model, X_train, X_test, y_train, y_test):
     print(f"Training {name}...")
 
+    # Fit the model on the training data.
     model.fit(X_train, y_train)
 
+    # Generate predicted labels and continuous scores on test data.
     y_pred = model.predict(X_test)
     y_score = get_model_scores(model, X_test)
 
@@ -111,6 +117,7 @@ def evaluate_model(name, model, X_train, X_test, y_train, y_test):
 def plot_model_comparison(results_df):
     metrics = ["accuracy", "precision", "recall", "f1", "roc_auc"]
 
+    # Reorganize the dataframe so each model is a category on the x-axis.
     plot_df = results_df.set_index("model")[metrics]
 
     plt.figure(figsize=(12, 6))
@@ -138,6 +145,7 @@ def plot_roc_curves(results, y_test):
 
         plt.plot(fpr, tpr, label=f"{name} (AUC={auc_score:.3f})")
 
+    # Add the diagonal baseline representing random guessing.
     plt.plot([0, 1], [0, 1], linestyle="--", label="Random Guess")
 
     plt.title("ROC Curve Comparison Across Models")
@@ -150,13 +158,26 @@ def plot_roc_curves(results, y_test):
 
 
 def main():
+    """
+    Main modeling workflow:
+    1. Load data from PostgreSQL
+    2. Split data into training and test sets
+    3. Train multiple classification models
+    4. Evaluate each model
+    5. Save metrics and figures
+    """
+    # Load the full dataset from the database.
     df = load_data()
 
     print("Dataset shape:", df.shape)
 
+    # Separate predictors (X) and target label (y).
+    # respondent_id is dropped because it is only an identifier, not a predictive feature.
     X = df.drop(columns=["respondent_id", "diabetes_binary"])
     y = df["diabetes_binary"]
 
+    # Stratified split keeps the class ratio similar in train and test sets.
+    # This is important because the dataset is imbalanced.
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
@@ -165,6 +186,9 @@ def main():
         stratify=y
     )
 
+    # Define all models to compare.
+    # StandardScaler is included in pipelines for models that are sensitive
+    # to feature scale, such as Logistic Regression, KNN, SVM, and Neural Network.
     models = [
         (
             "Logistic Regression",
@@ -226,7 +250,7 @@ def main():
             ])
         ),
     ]
-
+    # Store full results for every model.
     full_results = []
 
     for name, model in models:
@@ -248,8 +272,10 @@ def main():
     print("\nModel Results:")
     print(results_df)
 
+    # Save the metrics table so it can be reused in the report or README.
     results_df.to_csv(OUTPUT_DIR / "model_results.csv", index=False)
 
+    # Generate summary visualizations for model comparison.
     plot_model_comparison(results_df)
     plot_roc_curves(full_results, y_test)
 
