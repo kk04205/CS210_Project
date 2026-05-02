@@ -6,18 +6,31 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sqlalchemy import create_engine, text
 
+# Database connection string.
+# Try to read from environment variable first; otherwise use local database.
 DB_URL = os.getenv(
     "DATABASE_URL",
     "postgresql+psycopg2://kk@localhost:5432/cs210_diabetes"
 )
 
+# Create SQLAlchemy engine for database access.
 engine = create_engine(DB_URL)
 
+# Folder for saving generated figures.
 FIGURE_DIR = Path("outputs/figures")
 FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def load_dataset():
+    """
+    Load selected variables from the normalized PostgreSQL tables.
+
+    This query creates a smaller analysis-ready dataframe
+    specifically for visualization and exploratory data analysis.
+
+    Returns:
+        pd.DataFrame: Joined dataset for plotting.
+    """
     query = """
     SELECT
         d.respondent_id,
