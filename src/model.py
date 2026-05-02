@@ -9,6 +9,11 @@ from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
+from sklearn.svm import LinearSVC
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+
 import matplotlib.pyplot as plt
 from pathlib import Path
 
@@ -57,12 +62,60 @@ def main():
     results = []
 
     models = [
-        ("Logistic", LogisticRegression(max_iter=1000)),
-        ("Decision Tree", DecisionTreeClassifier()),
-        ("Random Forest", RandomForestClassifier()),
-        ("KNN", KNeighborsClassifier()),
-        ("Gradient Boosting", GradientBoostingClassifier()),
-    ]
+    (
+        "Logistic",
+        Pipeline([
+            ("scaler", StandardScaler()),
+            ("model", LogisticRegression(max_iter=1000, class_weight="balanced"))
+        ])
+    ),
+    (
+        "Decision Tree",
+        DecisionTreeClassifier(random_state=42, class_weight="balanced")
+    ),
+    (
+        "Random Forest",
+        RandomForestClassifier(
+            n_estimators=100,
+            random_state=42,
+            class_weight="balanced",
+            n_jobs=-1
+        )
+    ),
+    (
+        "KNN",
+        Pipeline([
+            ("scaler", StandardScaler()),
+            ("model", KNeighborsClassifier())
+        ])
+    ),
+    (
+        "Gradient Boosting",
+        GradientBoostingClassifier(random_state=42)
+    ),
+    (
+        "SVM",
+        Pipeline([
+            ("scaler", StandardScaler()),
+            ("model", LinearSVC(
+                class_weight="balanced",
+                random_state=42,
+                max_iter=5000
+            ))
+        ])
+    ),
+    (
+        "Neural Network",
+        Pipeline([
+            ("scaler", StandardScaler()),
+            ("model", MLPClassifier(
+                hidden_layer_sizes=(64, 32),
+                max_iter=200,
+                random_state=42
+            ))
+        ])
+    ),
+]
 
     for name, model in models:
         result = evaluate_model(name, model, X_train, X_test, y_train, y_test)
