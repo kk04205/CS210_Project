@@ -1,0 +1,7 @@
+This file contains the numerical evaluation results for all seven classification models in our diabetes prediction project, including accuracy, precision, recall, F1-score, 
+and ROC-AUC. Because the dataset is imbalanced, with 13.94% diabetic and 86.06% non-diabetic respondents, accuracy alone is not enough, so recall, F1-score, and ROC-AUC are especially important.
+Among all models, Gradient Boosting achieved the highest ROC-AUC (0.827), showing the strongest overall discrimination ability. Logistic Regression and SVM both performed well with ROC-AUC = 0.818, 
+and they also had the highest recalls, 0.759 and 0.765, which means they were the best at identifying diabetes cases. This is valuable in a healthcare setting, where missing positive cases is costly.
+Although Neural Network had the highest accuracy (0.861), and Random Forest and Gradient Boosting both reached 0.857, their recalls were much lower: 0.193, 0.158, and 0.170. This suggests that these 
+models predicted the majority non-diabetes class well, but missed many actual diabetes cases. The weakest model was the Decision Tree, with the lowest ROC-AUC (0.589). Overall, 
+this file shows that for our project, Logistic Regression and SVM are better for detecting diabetes cases, while Gradient Boosting gives the best overall ranking performance.
