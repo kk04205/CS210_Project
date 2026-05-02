@@ -1,0 +1,4 @@
+This heatmap visualizes pairwise correlations among the health and demographic variables used in the project. Most correlations are moderate rather than extremely strong,
+which suggests that the dataset contains multiple complementary predictors rather than a few highly redundant ones. The plot also shows that variables such as BMI, age, 
+high blood pressure, general health, and difficulty walking have more noticeable relationships with diabetes status, which aligns with our goal of understanding how different 
+health indicators contribute to risk classification.
