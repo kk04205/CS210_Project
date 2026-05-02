@@ -1,0 +1,4 @@
+This figure compares all trained models across accuracy, precision, recall, F1-score, and ROC-AUC. It shows that no single model dominates every metric. 
+Logistic Regression and SVM achieve the strongest recall, which is especially valuable in a healthcare setting because missing diabetes cases is costly. 
+Gradient Boosting performs well overall and provides one of the strongest ROC-AUC values, while Random Forest and Neural Network achieve high accuracy but 
+lower recall, meaning they miss more positive cases. This comparison reflects our project goal of evaluating multiple classification approaches rather than focusing on only one model.
