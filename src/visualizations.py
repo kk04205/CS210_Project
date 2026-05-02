@@ -41,8 +41,6 @@ def load_dataset():
     """
     return pd.read_sql_query(text(query), engine)
 
-
-# ✅ 新增1：BMI分类 vs 糖尿病率
 def plot_bmi_category(df):
     bins = [0, 18.5, 25, 30, 100]
     labels = ["Underweight", "Normal", "Overweight", "Obese"]
@@ -60,7 +58,6 @@ def plot_bmi_category(df):
     plt.close()
 
 
-# ✅ 新增2：General Health
 def plot_genhlth(df):
     rate = df.groupby("genhlth")["diabetes_binary"].mean() * 100
 
@@ -73,7 +70,6 @@ def plot_genhlth(df):
     plt.close()
 
 
-# ✅ 新增3：High BP
 def plot_highbp(df):
     rate = df.groupby("highbp")["diabetes_binary"].mean() * 100
 
@@ -86,7 +82,6 @@ def plot_highbp(df):
     plt.close()
 
 
-# ✅ 新增4：Income
 def plot_income(df):
     rate = df.groupby("income")["diabetes_binary"].mean() * 100
 
@@ -99,7 +94,6 @@ def plot_income(df):
     plt.close()
 
 
-# ✅ 原有：Correlation Heatmap
 def plot_corr(df):
     corr = df.drop(columns=["respondent_id"]).corr()
 
