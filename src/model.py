@@ -71,10 +71,8 @@ def main():
     results_df = pd.DataFrame(results)
     print(results_df)
 
-    # ✅ 保存结果
     results_df.to_csv("outputs/model_results.csv", index=False)
 
-    # ✅ 可视化
     plt.figure(figsize=(8, 5))
     plt.bar(results_df["model"], results_df["f1"])
     plt.title("Model Comparison (F1 Score)")
