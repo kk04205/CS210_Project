@@ -6,7 +6,15 @@ import matplotlib.pyplot as plt
 from sqlalchemy import create_engine, text
 
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    roc_auc_score,
+    roc_curve
+)
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -65,9 +73,28 @@ def load_data():
     return pd.read_sql_query(text(query), engine)
 
 
+def get_model_scores(model, X_test):
+    """
+    Return probability-like scores for ROC-AUC.
+
+    Some models support predict_proba().
+    LinearSVC does not, so we use decision_function().
+    """
+    if hasattr(model, "predict_proba"):
+        return model.predict_proba(X_test)[:, 1]
+    elif hasattr(model, "decision_function"):
+        return model.decision_function(X_test)
+    else:
+        return model.predict(X_test)
+
+
 def evaluate_model(name, model, X_train, X_test, y_train, y_test):
+    print(f"Training {name}...")
+
     model.fit(X_train, y_train)
+
     y_pred = model.predict(X_test)
+    y_score = get_model_scores(model, X_test)
 
     return {
         "model": name,
@@ -75,18 +102,50 @@ def evaluate_model(name, model, X_train, X_test, y_train, y_test):
         "precision": precision_score(y_test, y_pred, zero_division=0),
         "recall": recall_score(y_test, y_pred, zero_division=0),
         "f1": f1_score(y_test, y_pred, zero_division=0),
+        "roc_auc": roc_auc_score(y_test, y_score),
+        "model_object": model,
+        "y_score": y_score
     }
 
 
 def plot_model_comparison(results_df):
-    plt.figure(figsize=(10, 6))
-    plt.bar(results_df["model"], results_df["f1"])
-    plt.title("Model Comparison by F1 Score")
-    plt.ylabel("F1 Score")
+    metrics = ["accuracy", "precision", "recall", "f1", "roc_auc"]
+
+    plot_df = results_df.set_index("model")[metrics]
+
+    plt.figure(figsize=(12, 6))
+    plot_df.plot(kind="bar", figsize=(12, 6))
+
+    plt.title("Model Performance Comparison")
+    plt.ylabel("Score")
     plt.xlabel("Model")
     plt.xticks(rotation=30, ha="right")
+    plt.legend(title="Metric")
     plt.tight_layout()
     plt.savefig(FIGURE_DIR / "model_comparison.png", dpi=300)
+    plt.close()
+
+
+def plot_roc_curves(results, y_test):
+    plt.figure(figsize=(9, 7))
+
+    for result in results:
+        name = result["model"]
+        y_score = result["y_score"]
+
+        fpr, tpr, _ = roc_curve(y_test, y_score)
+        auc_score = roc_auc_score(y_test, y_score)
+
+        plt.plot(fpr, tpr, label=f"{name} (AUC={auc_score:.3f})")
+
+    plt.plot([0, 1], [0, 1], linestyle="--", label="Random Guess")
+
+    plt.title("ROC Curve Comparison Across Models")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(FIGURE_DIR / "roc_curve_comparison.png", dpi=300)
     plt.close()
 
 
@@ -168,23 +227,35 @@ def main():
         ),
     ]
 
-    results = []
+    full_results = []
 
     for name, model in models:
-        print(f"Training {name}...")
         result = evaluate_model(name, model, X_train, X_test, y_train, y_test)
-        results.append(result)
+        full_results.append(result)
 
-    results_df = pd.DataFrame(results)
+    results_df = pd.DataFrame([
+        {
+            "model": r["model"],
+            "accuracy": r["accuracy"],
+            "precision": r["precision"],
+            "recall": r["recall"],
+            "f1": r["f1"],
+            "roc_auc": r["roc_auc"]
+        }
+        for r in full_results
+    ])
 
     print("\nModel Results:")
     print(results_df)
 
     results_df.to_csv(OUTPUT_DIR / "model_results.csv", index=False)
+
     plot_model_comparison(results_df)
+    plot_roc_curves(full_results, y_test)
 
     print("\nSaved results to outputs/model_results.csv")
     print("Saved model comparison figure to outputs/figures/model_comparison.png")
+    print("Saved ROC curve figure to outputs/figures/roc_curve_comparison.png")
 
 
 if __name__ == "__main__":
