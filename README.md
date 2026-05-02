@@ -157,7 +157,7 @@ lower recall, meaning they miss more positive cases. This comparison reflects ou
 The ROC curve evaluates model performance across different thresholds.
 
 ![ROC Curve](outputs/figures/roc_curve_comparison.png)
-
+This ROC curve plot compares the discrimination ability of all models across decision thresholds. Gradient Boosting achieves the highest ROC-AUC at 0.827, while Logistic Regression and SVM both perform strongly at 0.818. These curves show that the best-performing models can separate diabetic and non-diabetic respondents much better than random guessing. The figure is important for our project because ROC-AUC provides a threshold-independent measure of predictive quality and helps us compare models more fairly on an imbalanced dataset.
 ---
 
 ## Exploratory Data Analysis
