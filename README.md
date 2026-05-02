@@ -114,22 +114,60 @@ Diabetes prevalence increases significantly with age.
 
 ## Machine Learning Models
 
-Two supervised learning models were trained:
+We trained and compared multiple models:
 
-### Logistic Regression
+- Logistic Regression  
+- Decision Tree  
+- Random Forest  
+- K-Nearest Neighbors (KNN)  
+- Gradient Boosting  
+- Support Vector Machine (SVM)  
+- Neural Network (MLP)
+  
+---
 
-- Accuracy: 72.8%
-- Recall: 75.9%
-- ROC-AUC: 0.818
+## Model Performance
 
-Best for screening use cases.
+| Model | Accuracy | Precision | Recall | F1 | ROC-AUC |
+|------|--------|----------|--------|----|--------|
+| Logistic Regression | 0.728 | 0.307 | 0.759 | 0.437 | 0.818 |
+| Decision Tree | 0.796 | 0.282 | 0.299 | 0.290 | 0.589 |
+| Random Forest | 0.857 | 0.458 | 0.158 | 0.235 | 0.791 |
+| KNN | 0.846 | 0.397 | 0.206 | 0.271 | 0.716 |
+| Gradient Boosting | 0.857 | 0.559 | 0.170 | 0.261 | 0.827 |
+| SVM | 0.724 | 0.305 | 0.765 | 0.436 | 0.818 |
+| Neural Network | 0.861 | 0.503 | 0.193 | 0.279 | 0.815 |
 
-### Random Forest
+---
 
-- Accuracy: 85.7%
-- Precision: 45.8%
+## Model Comparison Visualization
 
-Best for overall classification performance.
+### F1 Score Comparison
+
+![Model Comparison](outputs/figures/model_comparison.png)
+
+---
+
+## ROC Curve Comparison
+
+The ROC curve evaluates model performance across different thresholds.
+
+![ROC Curve](outputs/figures/roc_curve_comparison.png)
+
+---
+
+## Exploratory Data Analysis
+
+### Feature Importance
+
+![Feature Importance](outputs/figures/top10_feature_importance.png)
+
+### Additional Visualizations
+
+- BMI vs Diabetes  
+- Age vs Diabetes Rate  
+- Correlation Heatmap  
+- Class Distribution  
 
 ---
 
@@ -145,18 +183,21 @@ Feature importance from Random Forest:
 
 ---
 
-## Project Structure
+## Key Insights
 
-```text
-CS210_Project/
-│── data/
-│── sql/
-│   ├── schema.sql
-│   ├── load_staging.sql
-│   └── analysis_queries.sql
-│── src/
-│   ├── etl.py
-│   └── model.py
-│── outputs/
-│   └── figures/
-│── README.md
+- Logistic Regression and SVM achieve **high recall**  
+  → Good for detecting diabetes cases  
+
+- Random Forest has high accuracy but **low recall**  
+  → Misses many positive cases  
+
+- Gradient Boosting provides balanced performance  
+
+- Neural Network shows moderate performance but can be improved  
+
+### Important:
+
+In healthcare prediction, **recall is more important than accuracy**, because missing a diabetes case is costly.
+
+---
+
