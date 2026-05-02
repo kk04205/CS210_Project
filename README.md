@@ -158,6 +158,7 @@ The ROC curve evaluates model performance across different thresholds.
 
 ![ROC Curve](outputs/figures/roc_curve_comparison.png)
 This ROC curve plot compares the discrimination ability of all models across decision thresholds. Gradient Boosting achieves the highest ROC-AUC at 0.827, while Logistic Regression and SVM both perform strongly at 0.818. These curves show that the best-performing models can separate diabetic and non-diabetic respondents much better than random guessing. The figure is important for our project because ROC-AUC provides a threshold-independent measure of predictive quality and helps us compare models more fairly on an imbalanced dataset.
+
 ---
 
 ## Exploratory Data Analysis
@@ -165,6 +166,7 @@ This ROC curve plot compares the discrimination ability of all models across dec
 ### Feature Importance
 
 ![Feature Importance](outputs/figures/top10_feature_importance.png)
+This figure presents the top ten most important features from the Random Forest model. BMI is the most influential predictor, followed by age, general health, income, and high blood pressure. These results are especially valuable for our project because they connect model performance back to interpretable public health factors. Rather than treating the model as a black box, this plot helps explain which variables are driving diabetes risk classification and why the model makes its predictions.
 
 ### Additional Visualizations
 
