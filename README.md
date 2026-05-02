@@ -179,17 +179,7 @@ All additional visualization outputs are stored in the `outputs/figures/` folder
 
 ---
 
-## Key Predictors of Diabetes
 
-Feature importance from Random Forest:
-
-1. BMI
-2. Age
-3. General Health
-4. Income
-5. High Blood Pressure
-
----
 
 ## Key Insights
 
