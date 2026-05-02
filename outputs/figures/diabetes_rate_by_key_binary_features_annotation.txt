@@ -1,0 +1,4 @@
+This chart compares diabetes rates across several key binary health indicators, including high blood pressure, high cholesterol, smoking status, physical activity, 
+heart disease or attack history, and difficulty walking. In general, respondents with adverse health conditions such as high blood pressure, heart disease history, 
+and difficulty walking show much higher diabetes rates, highlighting that these variables are strongly associated with diabetes risk. This figure directly supports 
+our project’s aim of linking survey-based health indicators to meaningful and interpretable risk patterns.
