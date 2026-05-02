@@ -142,7 +142,7 @@ We trained and compared multiple models:
 
 ## Model Comparison Visualization
 
-### F1 Score Comparison
+### Model Performance Comparison
 
 ![Model Comparison](outputs/figures/model_comparison.png)
 
