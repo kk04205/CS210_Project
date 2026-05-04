@@ -1,15 +1,9 @@
 from sqlalchemy import create_engine, text
 
-# Database connection string.
-# This connects Python to the local PostgreSQL database used in the project.
 DB_URL = "postgresql+psycopg2://kk@localhost:5432/cs210_diabetes"
-
-# Create a SQLAlchemy engine so we can execute SQL statements from Python.
 engine = create_engine(DB_URL)
 
-# Each SQL statement below represents one step in the ETL pipeline.
-# The raw survey data is first assumed to already exist in staging_diabetes_raw.
-# Then we normalize the data into separate relational tables.
+# Move data from the staging table into normalized tables
 etl_steps = [
     """
     INSERT INTO respondents (source_row_id)
@@ -21,7 +15,7 @@ etl_steps = [
         respondent_id, sex, age, education, income
     )
     SELECT
-        respondent_id,
+        r.respondent_id,
         s.sex::numeric::smallint,
         s.age::numeric::smallint,
         s.education::numeric::smallint,
@@ -41,7 +35,7 @@ etl_steps = [
         menthlth, physhlth, diffwalk
     )
     SELECT
-        respondent_id,
+        r.respondent_id,
         s.highbp::numeric::smallint,
         s.highchol::numeric::smallint,
         s.cholcheck::numeric::smallint,
@@ -71,7 +65,7 @@ etl_steps = [
         respondent_id, diabetes_binary
     )
     SELECT
-        respondent_id,
+        r.respondent_id,
         s.diabetes_binary::numeric::smallint
     FROM respondents r
     JOIN (
@@ -82,8 +76,7 @@ etl_steps = [
     """
 ]
 
-# Run all ETL steps inside a single transaction.
-# engine.begin() ensures that if one step fails, the transaction can be rolled back.
+# Run all ETL steps inside a single transaction
 with engine.begin() as conn:
     for step in etl_steps:
         conn.execute(text(step))
