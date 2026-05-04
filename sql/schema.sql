@@ -36,7 +36,7 @@ CREATE TABLE respondents (
     source_row_id INT UNIQUE NOT NULL
 );
 
--- Demographics table:
+-- Demographics table
 CREATE TABLE demographics (
     respondent_id INT PRIMARY KEY,
     sex SMALLINT,
@@ -46,7 +46,7 @@ CREATE TABLE demographics (
     FOREIGN KEY (respondent_id) REFERENCES respondents(respondent_id)
 );
 
--- Health indicators table:
+-- Health indicators table
 CREATE TABLE health_indicators (
     respondent_id INT PRIMARY KEY,
     highbp SMALLINT,
@@ -69,7 +69,7 @@ CREATE TABLE health_indicators (
     FOREIGN KEY (respondent_id) REFERENCES respondents(respondent_id)
 );
 
--- Label table:
+-- Label table
 CREATE TABLE diabetes_labels (
     respondent_id INT PRIMARY KEY,
     diabetes_binary SMALLINT,
