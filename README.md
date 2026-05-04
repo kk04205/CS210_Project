@@ -191,24 +191,30 @@ In healthcare prediction, **recall is more important than accuracy**, because mi
 
 ## How to Run This Project
 To run the full pipeline, first clone the repository and install dependencies:
+```bash
 git clone https://github.com/kk04205/CS210_Project.git
 cd CS210_Project
 pip install -r requirements.txt
 
 Set up the PostgreSQL database and create tables:
+```bash
 createdb cs210_diabetes
 psql cs210_diabetes -f sql/schema.sql
 
 Load the dataset (make sure the CSV file is in the project root):
+```bash
 psql cs210_diabetes -f sql/load_staging.sql
 
 Run the ETL pipeline and SQL analysis:
+```bash
 python src/etl.py
 psql cs210_diabetes -f sql/analysis_queries.sql
 
 Train machine learning models and generate results:
+```bash
 python src/model.py
 
 Generate all visualizations:
+```bash
 python src/visualizations.py
 
