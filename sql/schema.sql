@@ -69,7 +69,7 @@ CREATE TABLE health_indicators (
     FOREIGN KEY (respondent_id) REFERENCES respondents(respondent_id)
 );
 
--- Label table
+-- Diabetes_binary table
 CREATE TABLE diabetes_labels (
     respondent_id INT PRIMARY KEY,
     diabetes_binary SMALLINT,
