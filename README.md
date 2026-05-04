@@ -145,11 +145,6 @@ We trained and compared multiple models:
 ### Model Performance Comparison
 
 ![Model Comparison](outputs/figures/model_comparison.png)
-This figure compares all trained models across accuracy, precision, recall, F1-score, and ROC-AUC. It shows that no single model dominates every metric. 
-Logistic Regression and SVM achieve the strongest recall, which is especially valuable in a healthcare setting because missing diabetes cases is costly. 
-Gradient Boosting performs well overall and provides one of the strongest ROC-AUC values, while Random Forest and Neural Network achieve high accuracy but 
-lower recall, meaning they miss more positive cases. This comparison reflects our project goal of evaluating multiple classification approaches rather than focusing on only one model.
-
 ---
 
 ## ROC Curve Comparison
@@ -157,8 +152,6 @@ lower recall, meaning they miss more positive cases. This comparison reflects ou
 The ROC curve evaluates model performance across different thresholds.
 
 ![ROC Curve](outputs/figures/roc_curve_comparison.png)
-This ROC curve plot compares the discrimination ability of all models across decision thresholds. Gradient Boosting achieves the highest ROC-AUC at 0.827, while Logistic Regression and SVM both perform strongly at 0.818. These curves show that the best-performing models can separate diabetic and non-diabetic respondents much better than random guessing. The figure is important for our project because ROC-AUC provides a threshold-independent measure of predictive quality and helps us compare models more fairly on an imbalanced dataset.
-
 ---
 
 ## Exploratory Data Analysis
@@ -166,7 +159,6 @@ This ROC curve plot compares the discrimination ability of all models across dec
 ### Feature Importance
 
 ![Feature Importance](outputs/figures/top10_feature_importance.png)
-This figure presents the top ten most important features from the Random Forest model. BMI is the most influential predictor, followed by age, general health, income, and high blood pressure. These results are especially valuable for our project because they connect model performance back to interpretable public health factors. Rather than treating the model as a black box, this plot helps explain which variables are driving diabetes risk classification and why the model makes its predictions.
 
 ### Additional Visualizations
 
