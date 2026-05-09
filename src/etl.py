@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, text
 
-DB_URL = postgresql+psycopg2://kk@localhost:5432/cs210_diabetes
+DB_URL = "postgresql+psycopg2://kk@localhost:5432/cs210_diabetes"
 engine = create_engine(DB_URL)
 
 # Move data from the staging table into normalized tables
