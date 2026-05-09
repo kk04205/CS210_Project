@@ -8,7 +8,7 @@ from sqlalchemy import create_engine, text
 
 DB_URL = os.getenv(
     "DATABASE_URL",
-    postgresql+psycopg2://kk@localhost:5432/cs210_diabetes
+    "postgresql+psycopg2://kk@localhost:5432/cs210_diabetes"
 engine = create_engine(DB_URL)
 FIGURE_DIR = Path("outputs/figures")
 FIGURE_DIR.mkdir(parents=True, exist_ok=True)
