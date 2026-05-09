@@ -91,7 +91,7 @@ def plot_income(df):
 
 # heatmap
 def plot_corr(df):
-    corr = df.drop(columns=["respondent_id"]).corr()
+    corr = df.drop(columns=["respondent_id"], errors="ignore").select_dtypes(include="number").corr()
     plt.figure(figsize=(10, 8))
     plt.imshow(corr)
     plt.colorbar()
