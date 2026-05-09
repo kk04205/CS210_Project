@@ -25,7 +25,7 @@ from sklearn.pipeline import Pipeline
 # Use environment variable if available, otherwise use local database
 DB_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql+psycopg2://postgres@localhost:5432/cs210_diabetes"
+    postgresql+psycopg2://kk@localhost:5432/cs210_diabetes
 )
 engine = create_engine(DB_URL)
 OUTPUT_DIR = Path("outputs")
