@@ -191,6 +191,7 @@ In healthcare prediction, **recall is more important than accuracy**, because mi
 
 ## How to Run This Project
 To run the full pipeline:
+If your PostgreSQL username is different, update the `DB_URL` in `src/model.py` and `src/visualizations.py`.
 
 ```bash
 # Clone the repository
